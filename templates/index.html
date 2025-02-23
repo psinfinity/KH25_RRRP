@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YOLO Real-Time Object Detection</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔴 Live YOLO Object Detection</h1>
+        <div class="video-container">
+            <img id="video-stream" src="/video_feed" alt="YOLO Video Stream">
+        </div>
+        <button id="toggle-stream">Pause Stream</button>
+        <br><br>
+        <a href="/upload">📂 Upload Video</a>
+    </div>
+
+    <script>
+        const videoStream = document.getElementById("video-stream");
+        const toggleButton = document.getElementById("toggle-stream");
+        let isStreaming = true;
+
+        toggleButton.addEventListener("click", () => {
+            if (isStreaming) {
+                videoStream.src = "";
+                toggleButton.textContent = "Play Stream";
+            } else {
+                videoStream.src = "/video_feed";
+                toggleButton.textContent = "Pause Stream";
+            }
+            isStreaming = !isStreaming;
+        });
+    </script>
+</body>
+</html>

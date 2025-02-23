@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Video</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            text-align: center;
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 600px;
+        }
+
+        form {
+            margin: 10px 0;
+        }
+
+        input[type="file"], button {
+            margin: 5px;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        #processedStream {
+            width: 100%;
+            max-width: 640px;
+            height: auto;
+            display: none;
+            border: 2px solid #333;
+            margin-top: 10px;
+        }
+
+        a {
+            display: block;
+            margin-top: 10px;
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        a:hover {
+            color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎥 Upload Video for YOLO Detection</h1>
+        
+        <form id="uploadForm" enctype="multipart/form-data">
+            <input type="file" name="file" accept="video/*" required>
+            <button type="submit">Upload</button>
+        </form>
+        
+        <p id="uploadStatus"></p>
+        <a id="downloadLink" style="display: none;" href="#">⬇️ Download Processed Video</a>
+        <br>
+        <a href="/">🔙 Back to Live Feed</a>
+        
+        <!-- MJPEG Stream -->
+        <h2>📡 Processing Stream</h2>
+        <img id="processedStream">
+
+    </div>
+
+    <script>
+        document.getElementById("uploadForm").addEventListener("submit", async (event) => {
+            event.preventDefault();
+            let formData = new FormData();
+            let fileInput = document.querySelector('input[type="file"]');
+            formData.append("file", fileInput.files[0]);
+        
+            let uploadStatus = document.getElementById("uploadStatus");
+            let downloadLink = document.getElementById("downloadLink");
+            let processedStream = document.getElementById("processedStream");
+        
+            uploadStatus.textContent = "Uploading...";
+            processedStream.style.display = "none";  // Hide stream initially
+            downloadLink.style.display = "none";  // Hide download button initially
+        
+            // Upload video
+            const response = await fetch("/upload_video/", {
+                method: "POST",
+                body: formData
+            });
+        
+            const result = await response.json();
+            uploadStatus.textContent = result.message;
+        
+            if (result.download_url) {
+                let filename = fileInput.files[0].name;
+                
+                // Show the live processed stream
+                processedStream.src = `/stream/${filename}`;
+                processedStream.style.display = "block";
+        
+                // Wait for 5 seconds to allow processing
+                setTimeout(() => {
+                    downloadLink.href = result.download_url;
+                    downloadLink.style.display = "block";
+                }, 10000);
+            }
+        });
+    </script>
+</body>
+</html>
