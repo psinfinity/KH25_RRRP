@@ -16,6 +16,21 @@ object_model = YOLO("model1.pt")  # Object detection
 road_model = YOLO("model2.pt")  # Road segmentation
 
 # Video capture (0 = default webcam)
+# Check if running on Railway (or any cloud platform)
+if "RAILWAY_ENVIRONMENT" in os.environ:
+    print("🚀 Running on Railway – Skipping Webcam Access!")
+    cap = None  # Don't use a webcam
+else:
+    cap = cv2.VideoCapture(0)  # Use webcam only if running locally
+
+if cap and cap.isOpened():
+    ret, frame = cap.read()
+    if ret:
+        cv2.imwrite("output.jpg", frame)  # Save frame instead of showing
+    cap.release()
+else:
+    print("⚠️ No camera found or running on Railway.")
+
 cap = cv2.VideoCapture(0)
 
 UPLOAD_FOLDER = "uploads"
