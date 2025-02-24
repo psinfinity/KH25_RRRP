@@ -1,0 +1,11 @@
+torch
+torchvision
+torchaudio
+ultralytics
+opencv-python
+flask
+fastapi
+uvicorn
+numpy
+pandas
+matplotlib
