@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 path: dataset/  # Root dataset directory
 train: images/train/  # Relative to `path`
 val: images/val/  # Relative to `path`
@@ -17,3 +18,24 @@ names:
   7: traffic light
   8: traffic sign
   9: train
+=======
+path: dataset/  # Root dataset directory
+train: images/train/  # Relative to `path`
+val: images/val/  # Relative to `path`
+
+# Number of classes
+nc: 10
+
+# Class names
+names:
+  0: car
+  1: bus
+  2: truck
+  3: person
+  4: rider
+  5: bike
+  6: motor
+  7: traffic light
+  8: traffic sign
+  9: train
+>>>>>>> 9cb3a0a909722f8643088afbf99ff64007dcc493

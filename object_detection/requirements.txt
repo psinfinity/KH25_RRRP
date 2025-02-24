@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 torch
 torchvision
 torchaudio
@@ -9,3 +10,16 @@ uvicorn
 numpy
 pandas
 matplotlib
+=======
+torch
+torchvision
+torchaudio
+ultralytics
+opencv-python
+flask
+fastapi
+uvicorn
+numpy
+pandas
+matplotlib
+>>>>>>> 9cb3a0a909722f8643088afbf99ff64007dcc493
