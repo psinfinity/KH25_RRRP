@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Traffic Object Detection Project
 
 ## Overview
@@ -206,4 +206,4 @@ Rishabh Raj
 Email: [rshabhraj311@gmail.com](mailto\:rshabhraj311@gmail.com)
 
 GitHub: riceu69
->>>>>>> 9cb3a0a909722f8643088afbf99ff64007dcc493
+ 
